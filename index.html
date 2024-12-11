@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privatisation Departures Board | Bring Back British Rail</title>
+    
+    <link rel="stylesheet" href="style.css">
+<meta name="description" content="Count down the days until your least favourite private train operator is re-nationalised.">
+
+
+<link rel="canonical" href="https://www.bringbackbritishrail.org/departures/" />
+<!-- Facebook Meta Tags -->
+<meta property="og:url" content="https://www.bringbackbritishrail.org/departures/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Privatisation Departures Board | Bring Back British Rail">
+<meta property="og:description" content="Count down the days until your least favourite private train operator is re-nationalised.">
+<meta property="og:image" content="https://www.bringbackbritishrail.org/departures/social.png">
+
+<!-- Twitter Meta Tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="bringbackbritishrail.org">
+<meta property="twitter:url" content="https://www.bringbackbritishrail.org/departures/">
+<meta name="twitter:title" content="Privatisation Departures Board | Bring Back British Rail">
+<meta name="twitter:description" content="Count down the days until your least favourite private train operator is re-nationalised.">
+<meta name="twitter:image" content="https://www.bringbackbritishrail.org/departures/social.png">
+
+
+</head>
+<body class="navy-theme" >
+<div class="board">
+    
+<div class="header">
+    <a href="https://www.bringbackbritishrail.org/"><img class="logo" src="logo.svg" alt="Logo"> </a>
+    <h1 class="title" id="board-title">
+Privatisation Departures Board</h1>
+</div>
+ 
+    <div class="header-row">
+        <div class="">Expected</div>
+        <div>Franchise</div>
+        <div class="hide-mob">Operated by</div>
+        <div  class="hide-mob">Days to go</div>
+    </div>
+
+    <div class="tabs">
+    <button class="tab" onclick="showTab('all')">Departures</button>
+    <button class="tab" onclick="showTab('nationalised')">Arrivals</button>
+</div>
+<div id="all" class="tab-content">
+    <div class="departures"></div>
+</div>
+<div id="nationalised" class="tab-content" style="display: none;">
+    <div class="departures-nationalised"></div>
+</div>
+</div>
+<div class="footer">
+
+       <div id="current-datetime">
+        <!--<span id="current-date"></span>-->
+        <span id="current-time"></span>
+    </div>
+ 
+
+
+</div>
+
+  <script>
+        // Franchise data
+        const franchiseData = [
+   
+            {
+                franchise: "South Western Railway",
+                date: "2025-05-25",
+                status: "Expected",
+                operators: [
+                    { name: "First Group & MTR Corporation", current: true },
+                    { name: "Stagecoach", period: "1996–2017" }
+                ]
+            },
+            {
+                franchise: "c2c",
+                date: "2025-07-20",
+                status: "Expected",
+                operators: [
+                    { name: "Trenitalia", current: true },
+                    { name: "National Express", period: "2000–2017" },
+                    { name: "Prism Rail", period: "1996–2000" }
+                ]
+            },
+            {
+                franchise: "Greater Anglia",
+                date: "2025-10-01",
+                status: "Expected",
+                operators: [
+                    { name: "Transport UK & Mitsui", current: true },
+                    { name: "Abellio & Mitsui", period: "2017–2023" },
+                    { name: "Abellio", period: "2012–2017" },
+                    { name: "National Express", period: "2004–2012" },
+                    { name: "First Group", period: "2003–2004" },
+                    { name: "GB Railways", period: "1997–2003" }
+                ]
+            },
+            {
+                franchise: "West Midlands Railway & London Northwestern",
+                date: "2026-09-20",
+                status: "Expected",
+                operators: [
+                    { name: "Transport UK", current: true },
+                    { name: "Abellio", period: "2018–2023" }
+                ]
+            },
+            {
+                franchise: "Avanti West Coast",
+                date: "2026-10-18",
+                status: "Expected",
+                operators: [
+                    { name: "First Group & Trenitalia", current: true },
+                    { name: "Virgin & Stagecoach", period: "1997–2019" }
+                ]
+            },
+            {
+                franchise: "East Midlands Railway",
+                date: "2026-10-18",
+                status: "Expected",
+                operators: [
+                    { name: "Transport UK", current: true },
+                    { name: "Abellio", period: "2018–2023" },
+                    { name: "Stagecoach", period: "2007–2019" },
+                    { name: "National Express", period: "1997–2007" }
+                ]
+            },
+            {
+                franchise: "CrossCountry",
+                date: "2027-10-15",
+                status: "Expected",
+                operators: [
+                    { name: "Arriva", current: true },
+                    { name: "Virgin & Stagecoach", period: "1997–2007" }
+                ]
+            },
+            {
+                franchise: "Chiltern Railways",
+                date: "2027-12-12",
+                status: "Expected",
+                operators: [
+                    { name: "Arriva", current: true },
+                    { name: "John Laing Group", period: "2002–2008" },
+                    { name: "M40 Trains", period: "1996–2002" }
+                ]
+            },
+            {
+                franchise: "Thameslink, Southern & Great Northern",
+                date: "2028-04-01",
+                status: "Expected",
+                operators: [
+                    { name: "Go-Ahead & Keolis", current: true },
+                    { name: "Connex", period: "1996–2001" }
+                ]
+            },
+            {
+                franchise: "Great Western Railway",
+                date: "2028-06-25",
+                status: "Expected",
+                operators: [
+                    { name: "First Group", current: true },
+                    { name: "National Express", period: "2000–2006" },
+                    { name: "Prism Rail", period: "1996–2000" }
+                ]
+            },
+            // Arrived Franchises
+            {
+                franchise: "London North Eastern Railway (LNER)",
+                date: "2018-06-24",
+                status: "Arrived",
+                operators: [
+                    { name: "Re-nationalised", current: true },
+                    { name: "Virgin & Stagecoach", period: "2015–2018" },
+                    { name: "Re-nationalised", period: "2009–2015" },
+                    { name: "National Express", period: "2007–2009" },
+                    { name: "Sea Containers", period: "1996–2007" }
+                ]
+            },
+            {
+                franchise: "Northern",
+                date: "2020-03-01",
+                status: "Arrived",
+                operators: [
+                    { name: "Re-nationalised", current: true },
+                    { name: "Arriva", period: "2016–2020" },
+                    { name: "Serco & Abellio", period: "2004–2016" },
+                    { name: "Arriva", period: "1997–2004" }
+                ]
+            },
+            {
+                franchise: "Transport for Wales Rail",
+                date: "2021-02-07",
+                status: "Arrived",
+                operators: [
+                    { name: "Re-nationalised", current: true },
+                    { name: "Keolis & Amey", period: "2018–2021" },
+                    { name: "Arriva", period: "2003–2018" },
+                    { name: "National Express", period: "2000–2003" },
+                    { name: "Prism Rail", period: "1996–2000" }
+                ]
+            },
+            {
+                franchise: "Southeastern",
+                date: "2021-10-16",
+                status: "Arrived",
+                operators: [
+                    { name: "Re-nationalised", current: true },
+                    { name: "Go-Ahead & Keolis", period: "2006–2021" },
+                    { name: "Re-nationalised", period: "2003–2006" },
+                    { name: "Connex", period: "1996–2003" }
+                ]
+            },
+            {
+                franchise: "ScotRail",
+                date: "2022-04-01",
+                status: "Arrived",
+                operators: [
+                    { name: "Re-nationalised", current: true },
+                    { name: "Abellio", period: "2015–2022" },
+                    { name: "First Group", period: "2004–2015" },
+                    { name: "National Express", period: "1997–2004" }
+                ]
+            },
+            {
+                franchise: "TransPennine Express",
+                date: "2023-05-28",
+                status: "Arrived",
+                operators: [
+                    { name: "Re-nationalised", current: true },
+                    { name: "First Group", period: "2004–2023" },
+                    { name: "Arriva", period: "1997–2004" }
+                ]
+            },
+            {
+                franchise: "Caledonian Sleeper",
+                date: "2023-06-25",
+                status: "Arrived",
+                operators: [
+                    { name: "Re-nationalised", current: true },
+                    { name: "Serco", period: "2015–2023" },
+                    { name: "First Group", period: "2004–2015" },
+                    { name: "National Express", period: "1997–2004" }
+                ]
+            }
+        ];
+
+function createOperatorsScroll(operators) {
+    const scrollContainer = document.createElement('div');
+    scrollContainer.className = 'operators-scroll';
+
+    const scrollContent = document.createElement('div');
+    scrollContent.className = 'operators-content';
+
+    operators.forEach((op, index) => {
+        const operatorSpan = document.createElement('span');
+        operatorSpan.className = op.current ? 'current-operator' : 'previous-operators';
+        operatorSpan.textContent = `${op.name}${op.period ? ` (${op.period})` : ''}`;
+
+        // Show the current operator first
+        if (op.current) {
+            operatorSpan.style.display = 'inline';  // Make current operator visible
+        } else {
+            operatorSpan.style.display = 'none';  // Hide previous operators initially
+        }
+
+        scrollContent.appendChild(operatorSpan);
+    });
+
+    scrollContainer.appendChild(scrollContent);
+    return scrollContainer;
+}
+
+function revealNextOperator() {
+    const containers = document.querySelectorAll('.operator-container');
+
+    containers.forEach((container) => {
+        const operatorSpans = container.querySelectorAll('.operators-content span');
+        let visibleOperatorIndex = -1;
+
+        // Find the current visible operator
+        operatorSpans.forEach((operator, index) => {
+            if (operator.style.display === 'block') {
+                visibleOperatorIndex = index;
+            }
+        });
+
+        // Hide the current visible operator
+        if (visibleOperatorIndex >= 0) {
+            operatorSpans[visibleOperatorIndex].style.display = 'none';
+        }
+
+        // Show the next operator (loop back to the first one if at the end)
+        const nextIndex = (visibleOperatorIndex + 1) % operatorSpans.length;
+        operatorSpans[nextIndex].style.display = 'block';
+    });
+}
+
+// Set up a periodic reveal of the operators (every 2 seconds)
+setInterval(revealNextOperator, 2000);
+
+ 
+
+
+
+    function createRow(data) {
+        const row = document.createElement('div');
+        row.className = 'row';
+
+        const formattedDate = new Date(data.date).toLocaleDateString('en-GB', {
+             day: '2-digit',
+         
+            month: 'short',
+            year: 'numeric'
+        });
+
+        row.innerHTML = `
+            <div class="date">${formattedDate}</div>
+            <div class="franchise">${data.franchise}</div>
+            <div class="operator-container"></div>
+            <div class="status">
+                ${data.status === 'Pending' ? '<span class="countdown">Calculating...</span>' : 'Re-nationalised'}
+            </div>
+        `;
+
+        const operatorContainer = row.querySelector('.operator-container');
+        operatorContainer.appendChild(createOperatorsScroll(data.operators));
+
+        return row;
+    }
+
+function sortAndRenderFranchises() {
+    const departures = document.querySelector('.departures');
+    departures.innerHTML = '';
+
+    const today = new Date();
+    const nonNationalisedFranchises = franchiseData.filter(
+        (franchise) => new Date(franchise.date) > today && franchise.status !== 'Arrived'
+    );
+
+    nonNationalisedFranchises.sort((a, b) => new Date(a.date) - new Date(b.date))
+        .forEach((franchise) => {
+            departures.appendChild(createRow(franchise));
+        });
+
+    updateCountdowns();
+}
+
+
+function filterNationalisedFranchises() {
+    const departuresNationalised = document.querySelector('.departures-nationalised');
+    departuresNationalised.innerHTML = '';
+
+    const today = new Date();
+    const nationalisedFranchises = franchiseData
+        .filter((franchise) => new Date(franchise.date) <= today || franchise.status === 'Arrived')
+        .sort((a, b) => new Date(b.date) - new Date(a.date)); // Sort by most recent date
+
+    nationalisedFranchises.forEach((franchise) => {
+        departuresNationalised.appendChild(createRow(franchise));
+    });
+}
+function moveFranchisesToNationalised() {
+    const today = new Date();
+    franchiseData.forEach((franchise) => {
+        if (new Date(franchise.date) <= today && franchise.status !== 'Arrived') {
+            franchise.status = 'Arrived';
+        }
+    });
+
+    sortAndRenderFranchises();
+    filterNationalisedFranchises();
+}
+
+
+
+function switchTab(tabId) {
+    if (tabId === 'all') {
+        document.body.className = 'navy-theme';
+    } else if (tabId === 'nationalised') {
+        document.body.className = 'red-theme';
+    }
+}
+
+
+function showTab(tabId) {
+    // Call switchTab to change the header color
+    switchTab(tabId);
+
+    // Toggle active tab content
+    document.querySelectorAll('.tab-content').forEach((content) => {
+        content.classList.toggle('active', content.id === tabId);
+        content.style.display = content.id === tabId ? 'block' : 'none';
+    });
+
+    // Update the header and column title
+    const boardTitle = document.getElementById('board-title');
+    const headerRow = document.querySelector('.header-row > div:first-child');
+    const titles = {
+        all: ['Privatisation Departures Board', 'Expected'],
+        nationalised: ['Nationalisation Arrivals Board', 'Arrived']
+    };
+
+    if (titles[tabId]) {
+        [boardTitle.textContent, headerRow.textContent] = titles[tabId];
+    }
+
+    // Highlight the active tab
+    document.querySelectorAll('.tabs .tab').forEach((tab) => {
+        tab.classList.toggle('tab-active', tab.textContent === (tabId === 'all' ? 'Departures' : 'Arrivals'));
+    });
+}
+
+
+// Update column header dynamically
+function updateColumnHeader(text) {
+    const header = document.querySelector('.header-row > div:first-child');
+    if (header) {
+        header.textContent = text;
+    }
+}
+
+// Initial setup
+sortAndRenderFranchises(); // Render "All Franchises" tab
+filterNationalisedFranchises(); // Render "Nationalised Franchises" tab
+showTab('all'); // Show the first tab by default
+
+
+
+// Periodically check and move franchises to the nationalised page
+setInterval(moveFranchisesToNationalised, 3600000); // Check every hour
+
+
+function updateCountdowns() {
+    const today = new Date();
+    const rows = document.querySelectorAll('.row');
+
+    rows.forEach((row) => {
+        // Find the franchise data corresponding to this row
+        const franchiseText = row.querySelector('.franchise').textContent;
+        const franchise = franchiseData.find(f => f.franchise === franchiseText);
+
+        if (franchise) {
+            const targetDate = new Date(franchise.date);
+            const diffTime = targetDate - today;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+            const statusEl = row.querySelector('.status');
+            if (statusEl) {
+                // If franchise is already arrived, show "Re-nationalised"
+                if (franchise.status === 'Arrived' || diffDays <= 0) {
+                    statusEl.innerHTML = 'Re-nationalised!';
+                } else {
+                    // Otherwise, show days remaining
+                    statusEl.innerHTML = `<span class="countdown">${diffDays} days</span>`;
+                }
+            }
+        }
+    });
+}
+
+function updateClock() {
+    const clockEl = document.getElementById('current-time');
+    if (clockEl) {
+        clockEl.textContent = new Date().toLocaleDateString('en-GB', {
+            day: '2-digit', // Ensures day is always two digits
+            month: 'short',
+            year: 'numeric'
+        });
+    }
+}
+
+// Update the clock every second
+setInterval(updateClock, 1000);
+setInterval(updateCountdowns, 86400000);
+
+function setupOperatorScroll() {
+    const baseScrollSpeed = 50; // pixels per second
+
+    document.querySelectorAll('.operator-container').forEach((container) => {
+        const scroll = container.querySelector('.operators-scroll');
+        const content = scroll.querySelector('.operators-content');
+        
+        // Ensure content is fully rendered before calculating
+        requestAnimationFrame(() => {
+            const contentWidth = content.offsetWidth;
+            const containerWidth = scroll.offsetWidth;
+            
+            // Only apply scrolling if content is wider than container
+            if (contentWidth > containerWidth) {
+                const totalScrollDistance = contentWidth + containerWidth;
+                const scrollDuration = totalScrollDistance / baseScrollSpeed;
+                
+                content.style.setProperty('--scroll-duration', `${scrollDuration}s`);
+                content.classList.add('scrolling');
+            } else {
+                // Remove scrolling if content fits within container
+                content.classList.remove('scrolling');
+                content.style.removeProperty('--scroll-duration');
+            }
+        });
+    });
+};
+
+
+
+function updateDateTime() {
+    const now = new Date();
+    const dateEl = document.getElementById('current-date');
+    const timeEl = document.getElementById('current-time');
+
+    if (dateEl && timeEl) {
+        // Format date
+        const formattedDate = now.toLocaleDateString('en-GB', {
+            weekday: false,
+             day: '2-digit',
+        month: 'short',
+        year: 'numeric'
+         
+        });
+
+        // Format time
+        const formattedTime = now.toLocaleTimeString('en-GB', {
+            hour: false,
+            minute: false,
+            second: false,
+            hour12: false
+        });
+
+        dateEl.textContent = formattedDate;
+        timeEl.textContent = formattedTime;
+    }
+}
+
+// Update immediately and then every second
+updateDateTime();
+setInterval(updateDateTime, 1000);
+</script>
+ <script async src="https://www.googletagmanager.com/gtag/js?id=G-NKEPWFB2Y6"></script> <script>window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-NKEPWFB2Y6');</script>
+</body>
+</html>

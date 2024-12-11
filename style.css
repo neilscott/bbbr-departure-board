@@ -1,0 +1,282 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: #1a1a1a;
+ 
+      font-family: 'Trebuchet MS',sans-serif;
+    margin: 0;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.board {
+    flex-grow: 1;
+  background: #1a1a1a;
+  min-height: 100vh;
+    padding-bottom:100px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+ 
+.footer {
+    background-color: navy;
+        background-color: #ED1C24;
+
+    padding: 1rem;
+    text-align: right;
+    margin-top: auto;
+    position: fixed;
+    bottom:0;
+    min-height: 3.5rem;
+    width:100vw;
+    left:0;
+        border-top: 2px solid #fff;
+}
+
+.footer-inner {
+    background: black;
+    width:100vw;
+    padding:4px;
+}
+/*
+.header {
+    position: fixed;
+    width: 100vw;
+}*/
+ 
+ 
+
+.header {
+       background-color: #ED1C24;
+
+    border-bottom: 2px solid #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    gap: 1rem;
+}
+
+body.navy-theme .header,
+body.navy-theme .footer {
+    background-color: navy;
+    color: white; /* Optional for better contrast */
+}
+
+body.red-theme .header,
+body.red-theme .footer {
+    background-color: red;
+    color: white; /* Optional for better contrast */
+}
+
+
+.navy-theme {
+    background-color: navy;
+    color: white;
+}
+
+.red-theme {
+    background-color: red;
+    color: white;
+}
+
+.logo {
+    max-width: clamp(4rem, 10vw, 200px);
+    filter: brightness(0) invert(1);
+    margin: .325rem 0 0 0;
+}
+
+.title {
+    font-size: clamp(16px, 4vw, 44px);
+    margin: 0;
+    flex: 1; /* Ensures it takes remaining space dynamically */
+    text-align: center; /* Align title to center dynamically */
+}
+.departures {
+    display: flex;
+    flex-direction: column;
+}
+
+ 
+
+.header-row, .row {
+    display: grid;
+    grid-template-columns: 1fr 3fr 2fr 1fr;
+    gap: 0;
+    align-items: center;
+    text-align: left;
+}
+
+.header-row, .row {
+    display: grid;
+    grid-template-columns: 1fr 3fr 2fr 1fr;
+    padding: .75rem 1rem 0.75rem .5rem;
+    gap: 0;
+    align-items: center;
+    text-align: left;
+}
+
+
+@media (max-width: 769px) {
+
+    .hide-mob {
+        display:none;
+    }
+}
+/* Mobile view */
+@media (max-width: 769px) {
+    .header-row, .row {
+        grid-template-columns: 1fr 2fr;
+        grid-template-areas:
+            "col1 col2"
+            " col4 col3";
+        gap: 10px;
+        padding: 10px;
+    }
+    .row div:nth-child(1) {
+        grid-area: col1;
+    }
+    .row div:nth-child(2) {
+        grid-area: col2;
+    }
+    .row div:nth-child(3) {
+        grid-area: col3;
+    }
+    .row div:nth-child(4) {
+        grid-area: col4;
+    }
+}
+
+.header-row {
+    background: #111;
+
+    font-weight: bold;
+    border-bottom: 2px solid #fff;
+}
+
+.row {
+    background: #111;
+    border-bottom: 1px solid #555;
+    transition: background-color 0.3s;
+}
+
+.row:nth-child(even) {
+    background-color: #2a2a2a;
+}
+
+.row:hover {
+    background: #1a1a1a;
+}
+
+/*
+.franchise, .date, .countdown, .status, .nationalisation-status {
+    font-size: 1.2em;
+
+
+}*/
+
+#nationalised.active .status {
+    color: #ED1C24;
+}
+
+.date {
+   /* color: #4caf50;*/
+}
+
+.countdown {
+    color: #2196f3;
+}
+.franchise {
+    font-size: clamp(1rem, 2vw,3rem);
+    color: #ffeb3b;
+}
+
+.tabs {
+    position:fixed;
+    bottom: 0.5rem;
+    left:0rem;
+    z-index: 100;
+}
+
+/*
+.status {
+    font-weight: 600;
+    color: #ffeb3b;
+}*/
+
+.status.completed, .nationalisation-status.completed {
+    color: #4caf50;
+}
+
+.nationalisation-status.pending {
+    color: #ffeb3b;
+}
+
+
+ 
+
+
+.previous-operators {
+    color: #00EE66 
+}
+.operators-scroll {
+    width: 100%;
+    overflow: hidden;
+}
+
+.operators-content {
+    display: flex;
+
+    justify-content: flex-start;
+    align-items: center;
+    text-align: left;
+}
+
+.operators-content span {
+    display: none; /* Hide operators initially */
+    padding-right: 10px;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.operators-content span.inline {
+    display: inline-block; /* Show operators when revealed */
+}
+.tabs {
+    display: flex;
+    justify-content: center;
+    margin: 0px 0;
+}
+
+.tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+background-color: transparent;
+    color: white;
+    margin: 0 5px;
+    font-size: 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.tab:hover {
+    background-color: #111;
+}
+.tab:focus, .tab.tab-active {
+    background-color: #111;
+}
+
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
